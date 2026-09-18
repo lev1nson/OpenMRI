@@ -14,7 +14,7 @@
   <a href="https://github.com/lev1nson/OpenMRI/actions/workflows/ci.yml"><img src="https://github.com/lev1nson/OpenMRI/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-8052ff" alt="License: MIT"></a>
   <img src="https://img.shields.io/badge/node-%E2%89%A5%2022.13-5fa04e" alt="Node.js 22.13 or newer">
-  <img src="https://img.shields.io/badge/python-3.12-3776ab" alt="Python 3.12">
+  <img src="https://img.shields.io/badge/python-3.12%E2%80%933.14-3776ab" alt="Python 3.12 to 3.14">
   <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Linux-8b949e" alt="macOS and Linux">
   <img src="https://img.shields.io/badge/data-stays%20local-ffb829" alt="Data stays local">
 </p>
@@ -41,7 +41,7 @@ OpenMRI is a visualization tool. It does not detect, measure, or diagnose anythi
 
 - macOS or Linux. Windows works through WSL.
 - [Node.js](https://nodejs.org) 22.13 or newer.
-- Python 3.12. On macOS: `brew install python@3.12`.
+- Python 3.12, 3.13, or 3.14. On macOS: `brew install python@3.12`.
 - A browser with WebGL 2.
 
 The DICOM converter `dcm2niix` is installed automatically into the project's Python
@@ -49,30 +49,67 @@ environment by `npm run setup`.
 
 ## Quick start
 
+Each way below installs OpenMRI on your computer, loads an anonymised demo
+study, and opens the app in your browser. Click Jane under Recent studies to
+open the study. The first run downloads about 1 GB and
+takes a few minutes.
+
+### Ask your AI coding agent
+
+Paste this into Claude Code, Codex, Cursor, or any agent that can run commands
+on your computer:
+
+```text
+Clone https://github.com/lev1nson/OpenMRI, follow its AGENTS.md to install
+and start it with the demo study, and open it in my browser.
+```
+
+[AGENTS.md](AGENTS.md) gives the agent the exact steps.
+
+### One command in the terminal
+
+On macOS or Linux:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/lev1nson/OpenMRI/main/install.sh | bash
+```
+
+On macOS the script installs missing Node.js, Python, and Git with Homebrew,
+and asks before installing Homebrew itself. On Linux it lists what to install
+first. The app goes into `~/OpenMRI`. Run the same command again to update.
+
+### By hand
+
 ```sh
 git clone https://github.com/lev1nson/OpenMRI.git
 cd OpenMRI
-npm ci          # JavaScript dependencies
-npm run setup   # Python virtualenv with pydicom, nibabel, SimpleITK, dcm2niix
-npm run build
-npm start       # http://127.0.0.1:4173
+npm run demo    # install, build, start in the background, load the demo, open the browser
 ```
 
-`npm run up` does the same in the background and opens the browser; `npm run down`
-stops the server and `npm run status` tells you whether it is running. On macOS
-you can instead double-click `Launch OpenMRI.command`, which runs the same steps
-in a Terminal window on first launch and opens the browser.
+`npm run demo` runs the individual steps for you: `npm ci`, `npm run setup` for
+the Python environment with pydicom, nibabel, SimpleITK, and dcm2niix, and
+`npm run build`. On macOS you can also double-click `Launch OpenMRI.command`,
+which runs the server in a Terminal window instead.
+
+### Starting and stopping
+
+```sh
+npm run up       # start in the background and open the browser
+npm run down     # stop
+npm run status   # running or not, with the log location
+```
 
 The server listens only on `127.0.0.1`. It is a single-user desktop app with no
 login, so do not expose the port to a network.
 
-## Try it with the demo study
+## The demo study
 
 `demo/jane-head-mri.zip` holds one anonymised head MRI session: 18 series,
-about 41 MB. Click **Import MRI**, choose that file, name the patient **Jane**,
-and click **Prepare the study**. The face has been removed and the headers carry
-no personal details; [demo/README.md](demo/README.md) describes the series and
-how the data was anonymised.
+about 41 MB. `npm run demo` loads it as patient Jane. To load it by hand, click
+**Import MRI**, choose that file, name the patient **Jane**, and click
+**Prepare the study**. The face has been removed and the headers carry no
+personal details; [demo/README.md](demo/README.md) describes the series and how
+the data was anonymised.
 
 ## Importing your scans
 
@@ -146,11 +183,14 @@ lib/
   analysis-contract.ts      adapter interface for a future local analysis model
 scripts/
   setup.mjs                 creates the Python environment
+  demo.mjs                  loads the demo study through the local API
   server.sh                 start, stop, restart, status, logs for the local server
   import_mri.py             ZIP inspection and DICOM/NIfTI conversion worker
   register_mri.py           rigid registration worker, SimpleITK
 tests/                    Node and Python tests
 demo/                     anonymised demo study (Jane) as an importable ZIP
+install.sh                one-line installer for macOS and Linux
+AGENTS.md                 setup steps and rules for AI coding agents
 docs/                     user guide and the registration feature description
 public/welcome/           welcome background and intro clip (generated illustrations)
 components/ui/            the few shadcn and base-ui primitives the app uses

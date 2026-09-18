@@ -78,7 +78,7 @@ start() {
   [[ "${1:-}" == '--no-open' ]] && open_after=0
   if healthy; then
     echo "OpenMRI is already running at $URL"
-    (( open_after )) && open_browser
+    if (( open_after )); then open_browser; fi
     return 0
   fi
   local other; other="$(listening_pid || true)"
@@ -94,7 +94,7 @@ start() {
   echo "Starting OpenMRI (pid $pid), log in $LOG_FILE"
   if wait_until_healthy "$pid"; then
     echo "OpenMRI is running at $URL"
-    (( open_after )) && open_browser
+    if (( open_after )); then open_browser; fi
   else
     echo "The server did not become healthy. Last log lines:" >&2
     tail -n 20 "$LOG_FILE" >&2 || true

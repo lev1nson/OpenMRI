@@ -2,9 +2,10 @@
 
 `jane-head-mri.zip` (41 MB) is one complete head MRI session of an
 adult volunteer, 18 series, included so you can try OpenMRI without scans of
-your own. Click **Import MRI**, choose the archive, name the patient **Jane**,
-and click **Prepare the study**. NIfTI files carry no patient details, so the
-name is typed at import and the study date stays unknown.
+your own. `npm run demo` loads it as patient Jane and opens the app. By hand: click
+**Import MRI**, choose the archive, name the patient **Jane**, and click
+**Prepare the study**. NIfTI files carry no patient details, so the name is
+typed at import and the study date stays unknown.
 
 | File                            | Series                                   | Voxels      | Voxel size, mm |
 | ------------------------------- | ---------------------------------------- | ----------- | -------------- |

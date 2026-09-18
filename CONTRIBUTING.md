@@ -19,7 +19,8 @@ npm run check        # lint, typecheck, Node tests
 npm run test:import  # Python tests: ZIP import, dcm2niix conversion, registration
 ```
 
-CI runs the same commands on Linux with Node 22 and Python 3.12.
+CI runs the same commands on Linux with Node 22 and Python 3.12 and 3.14, and
+checks that `npm run demo` loads the demo study.
 
 ## Rules that matter here
 

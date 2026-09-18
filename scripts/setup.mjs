@@ -1,6 +1,7 @@
-// Prepares the local processing environment: a Python 3.12 virtualenv with
-// pydicom, nibabel, SimpleITK and the dcm2niix converter. Node.js and npm are
-// assumed to be installed already.
+// Prepares the local processing environment: a Python virtualenv (3.12, 3.13
+// or 3.14) with pydicom, nibabel, SimpleITK and the dcm2niix converter.
+// Node.js and npm are assumed to be installed already. OPENMRI_SETUP_PYTHON
+// names a specific interpreter to use instead of searching for one.
 import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
@@ -19,21 +20,19 @@ function converterWorks(cmd) {
   const r = spawnSync(cmd, ['--version'], { encoding: 'utf8' });
   return !r.error && /dcm2nii/i.test(`${r.stdout ?? ''}${r.stderr ?? ''}`);
 }
+/** The pinned wheels are tested on these versions; see scripts/requirements.txt. */
+const SUPPORTED = ['3.12', '3.13', '3.14'];
 function findPython() {
-  const candidates = windows
-    ? [
-        ['py', ['-3.12']],
-        ['python3.12', []],
-        ['python', []],
-      ]
-    : [
-        ['python3.12', []],
-        ['python3', []],
-      ];
+  const explicit = process.env.OPENMRI_SETUP_PYTHON;
+  const candidates = explicit
+    ? [[explicit, []]]
+    : windows
+      ? [...SUPPORTED.map((v) => ['py', [`-${v}`]]), ['python', []]]
+      : [...SUPPORTED.map((v) => [`python${v}`, []]), ['python3', []]];
   for (const [cmd, args] of candidates) {
     const r = spawnSync(cmd, [...args, '--version'], { encoding: 'utf8' });
-    if (!r.error && /Python 3\.12\./.test(r.stdout + r.stderr))
-      return [cmd, args];
+    const version = /Python (3\.\d+)\./.exec(`${r.stdout}${r.stderr}`)?.[1];
+    if (!r.error && SUPPORTED.includes(version)) return [cmd, args];
   }
   return null;
 }
@@ -42,7 +41,7 @@ if (!existsSync(python)) {
   const found = findPython();
   if (!found) {
     console.error(
-      'Python 3.12 was not found. Install it from https://www.python.org/downloads/ (or with your package manager) and rerun npm run setup.',
+      `OpenMRI needs Python ${SUPPORTED.slice(0, -1).join(', ')} or ${SUPPORTED.at(-1)}, and none was found. Install one (on macOS: brew install python@3.12, otherwise https://www.python.org/downloads/) and rerun npm run setup.`,
     );
     process.exit(1);
   }

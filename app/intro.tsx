@@ -62,10 +62,12 @@ export default function Intro({
     const cap = window.setTimeout(finish, reduced ? REDUCED_MS : MAX_MS);
     const v = video.current;
     if (v && !reduced) {
-      // The transition always follows a click, so sound is normally allowed.
-      // If the browser still refuses, play muted rather than showing nothing.
+      // After a click on the page the browser allows sound. Without one, for
+      // example when a script opened the app, it refuses: play muted and say
+      // so, and one click on the sound button brings the music in.
       v.play().catch(() => {
         v.muted = true;
+        setSound(false);
         v.play().catch(() => window.setTimeout(finish, REDUCED_MS));
       });
     }

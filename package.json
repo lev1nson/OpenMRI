@@ -33,6 +33,7 @@
     "up": "bash scripts/server.sh start",
     "down": "bash scripts/server.sh stop",
     "status": "bash scripts/server.sh status",
+    "demo": "bash scripts/server.sh start --no-open && node scripts/demo.mjs",
     "lint": "oxlint app lib vite.config.ts",
     "format": "oxfmt",
     "typecheck": "tsc --noEmit",

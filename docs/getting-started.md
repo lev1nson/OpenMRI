@@ -6,7 +6,8 @@ diagnostic model is connected.
 
 ## Installation
 
-You need Node.js 22.13 or newer and Python 3.12. On macOS with Homebrew:
+You need Node.js 22.13 or newer and Python 3.12, 3.13, or 3.14. On macOS with
+Homebrew:
 
 ```sh
 brew install node python@3.12
@@ -59,9 +60,12 @@ rejected before anything is written. Importing the same archive again for the
 same patient reuses the existing studies. The same archive is never silently
 attached to a different patient.
 
-To try the app without scans of your own, import `demo/jane-head-mri.zip` and
-name the patient Jane. [demo/README.md](../demo/README.md) lists its series and
-explains how the data was anonymised.
+To try the app without scans of your own, run `npm run demo`. It imports
+`demo/jane-head-mri.zip` as patient Jane and opens the app; click Jane under
+Recent studies. You can also
+import that file by hand and name the patient Jane.
+[demo/README.md](../demo/README.md) lists its series and explains how the data
+was anonymised.
 
 Study dates come from the DICOM `StudyDate` tag. The `+C` contrast tag is set
 only when `ContrastBolusAgent` is filled or the series description explicitly

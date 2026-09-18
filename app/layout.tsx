@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   description:
     'View your own MRI and CT studies in 3D and on three slices, locally.',
   robots: { index: false, follow: false },
+  icons: { icon: '/favicon.svg' },
 };
 export default function RootLayout({
   children,

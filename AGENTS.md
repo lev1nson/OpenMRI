@@ -74,5 +74,5 @@ npm run test:import  # Python tests, including the demo import
 
 Run all three checks before you finish. The README describes the project
 layout; `CONTRIBUTING.md` has the rules for changes. OpenMRI is a viewer: it
-must not detect, measure, or diagnose. The anonymised demo is the only real
+must not detect, measure, or diagnose. The demo study is the only real
 scan allowed in the repository.

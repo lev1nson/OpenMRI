@@ -24,7 +24,7 @@ checks that `npm run demo` loads the demo study.
 
 ## Rules that matter here
 
-- **No real medical data.** The anonymised demo study in `demo/` is the only
+- **No real medical data.** The demo study in `demo/` is the only
   scan in the repository, and it stays the only one. Nothing else from a real
   person goes into code, tests, fixtures, issues, screenshots, or commit
   messages. Tests generate synthetic DICOM and NIfTI data; keep it that way.

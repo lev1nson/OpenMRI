@@ -1,6 +1,6 @@
 # Demo study: Jane
 
-`jane-head-mri.zip` (41 MB) is one complete head MRI session of an
+`jane-head-mri.zip` (45 MB) is one complete head MRI session of an
 adult volunteer, 18 series, included so you can try OpenMRI without scans of
 your own. `npm run demo` loads it as patient Jane and opens the app. By hand: click
 **Import MRI**, choose the archive, name the patient **Jane**, and click
@@ -32,21 +32,19 @@ The scan shows a brain after surgery. It is a demonstration of the viewer, not
 a reference dataset: do not use it for research, for training models, or for
 any medical purpose.
 
-## How it was anonymised
+## How it was prepared
 
 - The series were converted from DICOM to NIfTI with OpenMRI's own import
   pipeline (dcm2niix). The headers hold geometry and nothing else: no name,
   identifier, date of birth, study date, DICOM UIDs, or scanner details, and
   no header extensions. The 4D diffusion trace series was left out.
-- The face was removed. The `pydeface` face mask was registered to the 3D T1
-  with SimpleITK (rigid, then affine, Mattes mutual information), widened by
-  3 mm, and applied to every series through the shared scanner coordinates.
-  Nose, mouth, and chin are zeroed; ears and the back of the head remain.
+- The face was deliberately left in, so the 3D view shows a whole head. A
+  volume rendering shows a recognisable face, so this scan is not anonymous.
 - Every volume was resampled to at most 256 voxels per axis with linear
   interpolation, preserving the voxel-centre geometry, and stored as 16-bit
   integers.
 
-The person scanned agreed to the publication of the anonymised data. It is
-released under the repository's [MIT license](../LICENSE).
+The person scanned chose to publish this scan, face included. It is released
+under the repository's [MIT license](../LICENSE).
 
-SHA-256 of the archive: `4a24e9f43f1b3415d810f0f8b82e6587fae8b0072c67081c57efd5ed4acc8074`
+SHA-256 of the archive: `247b778cc557f6b474ed154cc56841cb8faaad05bf9d5456bee7f2c0cc213124`

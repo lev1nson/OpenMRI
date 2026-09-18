@@ -10,9 +10,9 @@ Everything you import stays in your data directory (`.openmri/` by default).
 OpenMRI never uploads images, DICOM headers, or patient details anywhere and
 makes no network requests while running.
 
-The only scan in the repository is the demo study in `demo/`. It was
-anonymised before publication: face removed, headers reduced to geometry. See
-[demo/README.md](demo/README.md). The banner and the intro clip are generated
+The only scan in the repository is the demo study in `demo/`, published with
+the consent of the person scanned. Its headers were reduced to geometry; the
+face was left in on purpose. See [demo/README.md](demo/README.md). The banner and the intro clip are generated
 illustrations, and the tests build synthetic DICOM and NIfTI data.
 
 When you report a problem, never attach real scans, DICOM headers, worker

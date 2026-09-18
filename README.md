@@ -49,8 +49,7 @@ environment by `npm run setup`.
 
 ## Quick start
 
-Each way below installs OpenMRI on your computer, loads an anonymised demo
-study, and opens the app in your browser. Click Jane under Recent studies to
+Each way below installs OpenMRI on your computer, loads a demo study, and opens the app in your browser. Click Jane under Recent studies to
 open the study. The first run downloads about 1 GB and
 takes a few minutes.
 
@@ -104,12 +103,13 @@ login, so do not expose the port to a network.
 
 ## The demo study
 
-`demo/jane-head-mri.zip` holds one anonymised head MRI session: 18 series,
-about 41 MB. `npm run demo` loads it as patient Jane. To load it by hand, click
+`demo/jane-head-mri.zip` holds one real head MRI session: 18 series,
+about 45 MB. `npm run demo` loads it as patient Jane. To load it by hand, click
 **Import MRI**, choose that file, name the patient **Jane**, and click
-**Prepare the study**. The face has been removed and the headers carry no
-personal details; [demo/README.md](demo/README.md) describes the series and how
-the data was anonymised.
+**Prepare the study**. The headers carry no personal details. The face was
+left in on purpose, so the 3D view shows a whole head.
+[demo/README.md](demo/README.md) describes the series and how they were
+prepared.
 
 ## Importing your scans
 
@@ -158,7 +158,7 @@ npm run check        # lint, typecheck and the Node tests together
 ```
 
 The Python tests generate synthetic DICOM and NIfTI data. One of them imports the
-anonymised demo archive end to end.
+demo archive end to end.
 
 ## Project layout
 
@@ -188,7 +188,7 @@ scripts/
   import_mri.py             ZIP inspection and DICOM/NIfTI conversion worker
   register_mri.py           rigid registration worker, SimpleITK
 tests/                    Node and Python tests
-demo/                     anonymised demo study (Jane) as an importable ZIP
+demo/                     demo study (Jane) as an importable ZIP
 install.sh                one-line installer for macOS and Linux
 AGENTS.md                 setup steps and rules for AI coding agents
 docs/                     user guide and the registration feature description

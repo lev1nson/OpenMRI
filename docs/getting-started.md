@@ -65,7 +65,7 @@ To try the app without scans of your own, run `npm run demo`. It imports
 Recent studies. You can also
 import that file by hand and name the patient Jane.
 [demo/README.md](../demo/README.md) lists its series and explains how the data
-was anonymised.
+was prepared.
 
 Study dates come from the DICOM `StudyDate` tag. The `+C` contrast tag is set
 only when `ContrastBolusAgent` is filled or the series description explicitly

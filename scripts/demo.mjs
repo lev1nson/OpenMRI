@@ -1,4 +1,4 @@
-// Loads the anonymised demo study as patient "Jane" through the local API and
+// Loads the demo study as patient "Jane" through the local API and
 // opens the welcome screen, where Jane's study is the first recent study.
 // Clicking it plays the entering transition with sound; browsers only allow
 // sound after a click, so the script does not open the study itself.

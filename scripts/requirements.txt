@@ -2,5 +2,5 @@ pydicom==3.0.1
 nibabel==5.3.2
 numpy==2.2.6
 scipy==1.18.1
-SimpleITK==2.5.2
+SimpleITK==2.5.6
 dcm2niix==1.0.20260724

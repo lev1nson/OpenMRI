@@ -50,7 +50,20 @@ load_brew() {
   return 1
 }
 
+# New terminal windows must find Homebrew too, or npm run up and npm run down
+# fail later with "command not found". This is the step Homebrew itself asks for.
+remember_brew() {
+  local profile="$HOME/.zprofile" line
+  [[ "${SHELL:-}" == */bash ]] && profile="$HOME/.bash_profile"
+  line="eval \"\$($(command -v brew) shellenv)\""
+  grep -qsF "$line" "$profile" && return 0
+  printf '\n%s\n' "$line" >>"$profile"
+  say "Added Homebrew to $profile so new terminal windows find it."
+}
+
 prepare_macos() {
+  local brew_on_path=0
+  has brew && brew_on_path=1
   if ! load_brew; then
     say 'OpenMRI needs Node.js, Python and Git. On macOS they are installed with Homebrew, which is not on this Mac yet.'
     ask 'Install Homebrew now? It asks for your password.' ||
@@ -58,6 +71,7 @@ prepare_macos() {
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     load_brew || fail 'Homebrew was installed but could not be found. Open a new terminal and run this command again.'
   fi
+  if ((brew_on_path == 0)); then remember_brew; fi
   local missing=()
   git_ok || missing+=(git)
   node_ok || missing+=(node)

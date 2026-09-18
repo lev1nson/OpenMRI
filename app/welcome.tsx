@@ -46,9 +46,9 @@ export default function Welcome({
         <h1>
           {returning ? (
             <>
-              Pick up where
+              Your MRI,
               <br />
-              <span>you left off.</span>
+              <span>in 3D.</span>
             </>
           ) : (
             <>
